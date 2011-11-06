@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+   
+	<persistence-unit name="ContactManager" transaction-type="RESOURCE_LOCAL">
+		<description>This unit manages contacts.</description>
+		
+		<!-- This makes sense if we're always going to load a container-managed data source, but for integration
+		     tests we might want to inject our own app-managed data source. It's fine to omit this here, but then
+		     we need to provide it from the Spring config. -->
+		<jta-data-source>jdbc/Sip02DS</jta-data-source>
+		
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.show_sql" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>

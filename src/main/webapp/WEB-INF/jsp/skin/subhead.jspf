@@ -1,0 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/jsp/urls.jspf" %>
+
+<div id="subhd">
+	<div id="topNav">
+		<ul>
+			<li><a href="${homeUrl}">Home</a></li>
+			<li><a href="${contactListUrl}">Contacts</a></li>
+		</ul>
+	</div>
+</div>

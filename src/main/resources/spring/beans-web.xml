@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	
+	<mvc:default-servlet-handler />
+	<mvc:annotation-driven />
+	<mvc:view-controller path="" view-name="extras/home" />
+	
+	<context:component-scan base-package="com.springinpractice.ch02.web" />
+	
+	<util:map id="viewNames">
+		<entry key="contactList" value="contactList" />
+		<entry key="contactForm" value="contactForm" />
+		<entry key="createContactSuccess" value="redirect:/contacts.html?saved=true" />
+		<entry key="updateContactSuccess" value="redirect:/contacts.html?saved=true" />
+		<entry key="deleteContactSuccess" value="redirect:/contacts.html?deleted=true" />
+	</util:map>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.JstlView"
+		p:prefix="/WEB-INF/jsp/"
+		p:suffix=".jsp" />
+	
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+		p:basename="classpath:/spring/messages" />
+</beans>
