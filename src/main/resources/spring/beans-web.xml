@@ -23,6 +23,7 @@
 		<entry key="createContactSuccess" value="redirect:/contacts.html?saved=true" />
 		<entry key="updateContactSuccess" value="redirect:/contacts.html?saved=true" />
 		<entry key="deleteContactSuccess" value="redirect:/contacts.html?deleted=true" />
+		<entry key="contactSerp" value="contactSerp" />
 	</util:map>
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"

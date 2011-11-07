@@ -11,32 +11,22 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>My Contacts</title>
+		<title>Search results for e-mail like "<c:out value="${param.email}" />"</title>
 		<script type="text/javascript" src="${contactsJsUrl}"></script>
 	</head>
 	<body>
 		<ul id="breadcrumbs">
 			<li><a href="${homeUrl}">Home</a></li>
+			<li><a href="${contactListUrl}">Contacts</a></li>
 		</ul>
 	
-		<h1>My Contacts</h1>
-		
-		<c:if test="${param.saved}">
-			<div class="info alert">Contact saved.</div>
-		</c:if>
-		<c:if test="${param.deleted}">
-			<div class="info alert">Contact deleted.</div>
-		</c:if>
+		<h1>Search results for e-mail like "<c:out value="${param.email}" />"</h1>
 		
 		<c:choose>
 			<c:when test="${empty contactList}">
-				<p>Your contact list is empty. <a href="${newContactUrl}">Create a new contact.</a></p>
+				<p>No contacts found.</p>
 			</c:when>
 			<c:otherwise>
-				<div class="tableActionBar">
-					${fn:length(contactList)} contacts |
-					<span class="vcardAdd icon"><a href="${newContactUrl}">Create new contact</a></span>
-				</div>
 				<table id="contactList" class="sortable">
 					<thead>
 						<tr>
@@ -64,12 +54,6 @@
 			</c:otherwise>
 		</c:choose>
 		
-		<div class="panel" style="padding: 10px 20px">
-			<form action="${searchByEmailUrl}" method="get">
-				Search by e-mail (partial OK):&nbsp;
-				<input type="text" name="email" class="medium" />&nbsp;
-				<input type="submit" value="Search" />
-			</form>
-		</div>
+		<p>&laquo; Back to <a href="${contactListUrl}">contacts</a></p>
 	</body>
 </html>

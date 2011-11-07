@@ -62,4 +62,6 @@ public interface ContactService {
 	 *            contact ID
 	 */
 	void deleteContact(long id);
+	
+	List<Contact> findContactByEmail(String email);
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springinpractice.ch02.model.Contact;
 import com.springinpractice.ch02.service.ContactService;
@@ -53,6 +54,9 @@ public class ContactController {
 	
 	@Value("#{viewNames.deleteContactSuccess}")
 	private String deleteContactSuccessViewName;
+	
+	@Value("#{viewNames.contactSerp}")
+	private String contactSerpViewName;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -160,6 +164,12 @@ public class ContactController {
 	public String deleteContact(@PathVariable("id") long id) {
 		contactService.deleteContact(id);
 		return deleteContactSuccessViewName;
+	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String searchByEmail(@RequestParam("email") String email, Model model) {
+		model.addAttribute(contactService.findContactByEmail(email));
+		return contactSerpViewName;
 	}
 
 	private void prepareNewContactForm(HttpServletRequest req) {

@@ -42,18 +42,18 @@ public class ContactServiceImpl implements ContactService {
 		readOnly = false)
 	public void createContact(Contact contact) {
 		notNull(contact);
-		contactDao.create(contact);
+		contactDao.save(contact);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.springinpractice.ch10.service.ContactService#getContacts()
 	 */
-	public List<Contact> getContacts() { return contactDao.getAll(); }
+	public List<Contact> getContacts() { return contactDao.findAll(); }
 
 	/* (non-Javadoc)
 	 * @see com.springinpractice.ch10.service.ContactService#getContact(long)
 	 */
-	public Contact getContact(long id) { return contactDao.get(id); }
+	public Contact getContact(long id) { return contactDao.findOne(id); }
 
 	/* (non-Javadoc)
 	 * @see com.springinpractice.ch10.service.ContactService#updateContact(com.springinpractice.ch10.model.Contact)
@@ -64,7 +64,7 @@ public class ContactServiceImpl implements ContactService {
 		readOnly = false)
 	public void updateContact(Contact contact) {
 		notNull(contact);
-		contactDao.update(contact);
+		contactDao.save(contact);
 	}
 
 	/* (non-Javadoc)
@@ -74,5 +74,14 @@ public class ContactServiceImpl implements ContactService {
 		propagation = Propagation.REQUIRED,
 		isolation = Isolation.DEFAULT,
 		readOnly = false)
-	public void deleteContact(long id) { contactDao.deleteById(id); }
+	public void deleteContact(long id) { contactDao.delete(id); }
+	
+	/* (non-Javadoc)
+	 * @see com.springinpractice.ch02.service.ContactService#findContactByEmail(java.lang.String)
+	 */
+	@Override
+	public List<Contact> findContactByEmail(String email) {
+		String emailWithWildcards = "%" + email + "%";
+		return contactDao.findByEmailLike(emailWithWildcards);
+	}
 }

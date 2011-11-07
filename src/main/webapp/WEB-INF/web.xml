@@ -11,12 +11,13 @@
 	</context-param>
 	<context-param>
 		<param-name>recipe</param-name>
-		<param-value>2.5</param-value>
+		<param-value>2.6</param-value>
 	</context-param>
 	<context-param>
 		<param-name>aboutThisRecipe</param-name>
 		<param-value><![CDATA[
-<p>Section 2.5 shows how to implement DAOs using the Java Persistence API (JPA).</p>
+<p>Spring Data JPA, a recent addition to the Spring portfolio, simplifies the development of DAOs. Section 2.6 shows how
+to build a DAO using Spring Data JPA.</p>
 		]]></param-value>
 	</context-param>
 	

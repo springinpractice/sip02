@@ -11,12 +11,13 @@
 		<version>1.0-RELEASE</version>
 	</parent>
 	
-	<artifactId>com.springinpractice.02_05</artifactId>
+	<artifactId>com.springinpractice.02_06</artifactId>
 	<packaging>war</packaging>
 	
-	<name>Spring in Practice Section 2.5</name>
+	<name>Spring in Practice Section 2.6</name>
 	<description>
-		Section 2.5 shows how to build a simple application with a JPA backend.
+		Spring Data JPA, a recent addition to the Spring portfolio, simplifies the development of DAOs. Section 2.6
+		shows how to build a DAO using Spring Data JPA.
 	</description>
 	<url>http://springinpractice.com/</url>
 	
@@ -54,6 +55,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		
+		<!-- Spring Data JPA -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 	</dependencies>
 
