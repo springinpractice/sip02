@@ -3,17 +3,16 @@ package com.springinpractice.ch02.dao.jdbc;
 import static org.springframework.util.Assert.notNull;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.springinpractice.ch02.dao.ContactDao;
@@ -25,36 +24,26 @@ import com.springinpractice.ch02.model.Contact;
 @Repository
 public class JdbcContactDao implements ContactDao {
 	private static final String CREATE_SQL =
-			"insert into contact (last_name, first_name, mi, email) values (?, ?, ?, ?)";
+			"insert into contact (last_name, first_name, mi, email) values (:lastName, :firstName, :mi, :email)";
 	private static final String FIND_ALL_SQL =
 			"select id, last_name, first_name, mi, email from contact";
+	private static final String FIND_ALL_BY_EMAIL_LIKE_SQL =
+			"select id, last_name, first_name, mi, email from contact where email like :email";
 	
-	@Inject private DataSource dataSource;
+	@Inject private NamedParameterJdbcOperations jdbcTemplate;
+	@Inject private ContactRowMapper contactRowMapper;
 
 	@Override
 	public void create(Contact contact) {
 		notNull(contact, "contact can't be null");
-		try {
-			Connection c = dataSource.getConnection();
-			try {
-				PreparedStatement ps = c.prepareStatement(CREATE_SQL, Statement.RETURN_GENERATED_KEYS);
-				try {
-					ps.setString(1, contact.getLastName());
-					ps.setString(2, contact.getFirstName());
-					ps.setString(3, contact.getMiddleInitial());
-					ps.setString(4, contact.getEmail());
-					ps.executeUpdate();
-					ResultSet rs = ps.getGeneratedKeys();
-					try {
-						while (rs.next()) {
-							contact.setId(rs.getLong(1));
-						}
-					} finally { rs.close(); }
-				} finally { ps.close(); }
-			} finally { c.close(); }
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		SqlParameterSource params = new MapSqlParameterSource()
+			.addValue("lastName", contact.getLastName())
+			.addValue("firstName", contact.getFirstName())
+			.addValue("mi", contact.getMiddleInitial())
+			.addValue("email", contact.getEmail());
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(CREATE_SQL, params, keyHolder);
+		contact.setId(keyHolder.getKey().longValue());
 	}
 
 	@Override
@@ -69,31 +58,7 @@ public class JdbcContactDao implements ContactDao {
 
 	@Override
 	public List<Contact> getAll() {
-		try {
-			Connection c = dataSource.getConnection();
-			try {
-				Statement s = c.createStatement();
-				try {
-					ResultSet rs = s.executeQuery(FIND_ALL_SQL);
-					try {
-						List<Contact> contacts = new ArrayList<Contact>();
-						while (rs.next()) {
-							Contact contact = new Contact();
-							contact.setId(rs.getLong(1));
-							contact.setLastName(rs.getString(2));
-							contact.setFirstName(rs.getString(3));
-							contact.setMiddleInitial(rs.getString(4));
-							contact.setEmail(rs.getString(5));
-							contacts.add(contact);
-						}
-						return contacts;
-					} finally { rs.close(); }
-				} finally { s.close(); }
-			} finally { c.close(); }
-		} catch (SQLException e) {
-			// Don't know here what type of DataAccessException this would be, so just throw RuntimeException.
-			throw new RuntimeException(e);
-		}
+		return jdbcTemplate.query(FIND_ALL_SQL, new HashMap<String, Object>(), contactRowMapper);
 	}
 
 	@Override
@@ -128,6 +93,8 @@ public class JdbcContactDao implements ContactDao {
 
 	@Override
 	public List<Contact> getByEmailLike(String email) {
-		throw new UnsupportedOperationException("Not implemented");
+		notNull(email, "email can't be null");
+		SqlParameterSource params = new MapSqlParameterSource("email", "%" + email + "%");
+		return jdbcTemplate.query(FIND_ALL_BY_EMAIL_LIKE_SQL, params, contactRowMapper);
 	}
 }
