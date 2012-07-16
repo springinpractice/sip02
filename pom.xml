@@ -11,14 +11,11 @@
 		<version>1.0-RELEASE</version>
 	</parent>
 	
-	<artifactId>com.springinpractice.02_06</artifactId>
+	<artifactId>com.springinpractice.02_01</artifactId>
 	<packaging>war</packaging>
 	
-	<name>Spring in Practice Section 2.6</name>
-	<description>
-		Spring Data JPA, a recent addition to the Spring portfolio, simplifies the development of DAOs. Section 2.6
-		shows how to build a DAO using Spring Data JPA.
-	</description>
+	<name>Spring in Practice Section 2.1</name>
+	<description>Illustrates two different ways to present a JDBC DataSource to the application.</description>
 	<url>http://springinpractice.com/</url>
 	
 	<properties>
@@ -34,12 +31,6 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>com.springinpractice.deps-hibernate</artifactId>
-			<version>1.0-RELEASE</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
 			<artifactId>com.springinpractice.deps-web</artifactId>
 			<version>1.0-RELEASE</version>
 			<type>pom</type>
@@ -51,16 +42,14 @@
 			<type>war</type>
 		</dependency>
 		
-		<!-- Need this to use Hibernate as a JPA persistence provider -->
+		<!-- For JDBC -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
+			<groupId>com.mysql.jdbc</groupId>
+			<artifactId>com.springsource.com.mysql.jdbc</artifactId>
 		</dependency>
-		
-		<!-- Spring Data JPA -->
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.dbcp</artifactId>
 		</dependency>
 	</dependencies>
 

@@ -1,8 +1,3 @@
-/* 
- * Book web site   - http://www.manning.com/wheeler/
- * Book blog       - http://springinpractice.com/
- * Author web site - http://wheelersoftware.com/
- */
 package com.springinpractice.ch02.web;
 
 import javax.inject.Inject;
@@ -61,7 +56,7 @@ public class ContactController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setAllowedFields(new String[] {
-			"firstName", "middleInitial", "lastName", "email"	
+			"firstName", "middleInitial", "lastName", "email"
 		});
 	}
 

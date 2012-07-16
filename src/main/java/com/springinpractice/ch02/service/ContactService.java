@@ -1,8 +1,3 @@
-/* 
- * Book web site   - http://www.manning.com/wheeler/
- * Book blog       - http://springinpractice.com/
- * Author web site - http://wheelersoftware.com/
- */
 package com.springinpractice.ch02.service;
 
 import java.util.List;
@@ -18,9 +13,7 @@ import com.springinpractice.ch02.model.Contact;
 public interface ContactService {
 
 	/**
-	 * <p>
 	 * Creates the given contact in the persistent store.
-	 * </p>
 	 * 
 	 * @param contact
 	 *            contact to create
@@ -30,20 +23,14 @@ public interface ContactService {
 	void createContact(Contact contact);
 
 	/**
-	 * <p>
-	 * Returns a list containing all contacts. Returns an empty list if there
-	 * aren't any contacts.
-	 * </p>
+	 * Returns a list containing all contacts. Returns an empty list if there aren't any contacts.
 	 * 
 	 * @return list of all contacts
 	 */
 	List<Contact> getContacts();
 
 	/**
-	 * <p>
-	 * Returns the contact having the given ID, or <code>null</code> if no such
-	 * contact exists.
-	 * </p>
+	 * Returns the contact having the given ID, or <code>null</code> if no such contact exists.
 	 * 
 	 * @param id
 	 *            contact ID
@@ -54,9 +41,7 @@ public interface ContactService {
 	void updateContact(Contact contact);
 
 	/**
-	 * <p>
 	 * Deletes the contact having the given ID.
-	 * </p>
 	 * 
 	 * @param id
 	 *            contact ID
