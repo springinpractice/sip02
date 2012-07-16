@@ -1,7 +1,10 @@
 package com.springinpractice.ch02.dao.jdbc;
 
+import static org.springframework.util.Assert.notNull;
+
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,13 +24,37 @@ import com.springinpractice.ch02.model.Contact;
  */
 @Repository
 public class JdbcContactDao implements ContactDao {
-	private static final String FIND_ALL_QUERY = "select id, last_name, first_name, mi, email from contact";
+	private static final String CREATE_SQL =
+			"insert into contact (last_name, first_name, mi, email) values (?, ?, ?, ?)";
+	private static final String FIND_ALL_SQL =
+			"select id, last_name, first_name, mi, email from contact";
 	
 	@Inject private DataSource dataSource;
 
 	@Override
-	public void create(Contact t) {
-		throw new UnsupportedOperationException("Not implemented");
+	public void create(Contact contact) {
+		notNull(contact, "contact can't be null");
+		try {
+			Connection c = dataSource.getConnection();
+			try {
+				PreparedStatement ps = c.prepareStatement(CREATE_SQL, Statement.RETURN_GENERATED_KEYS);
+				try {
+					ps.setString(1, contact.getLastName());
+					ps.setString(2, contact.getFirstName());
+					ps.setString(3, contact.getMiddleInitial());
+					ps.setString(4, contact.getEmail());
+					ps.executeUpdate();
+					ResultSet rs = ps.getGeneratedKeys();
+					try {
+						while (rs.next()) {
+							contact.setId(rs.getLong(1));
+						}
+					} finally { rs.close(); }
+				} finally { ps.close(); }
+			} finally { c.close(); }
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -47,7 +74,7 @@ public class JdbcContactDao implements ContactDao {
 			try {
 				Statement s = c.createStatement();
 				try {
-					ResultSet rs = s.executeQuery(FIND_ALL_QUERY);
+					ResultSet rs = s.executeQuery(FIND_ALL_SQL);
 					try {
 						List<Contact> contacts = new ArrayList<Contact>();
 						while (rs.next()) {
@@ -70,12 +97,12 @@ public class JdbcContactDao implements ContactDao {
 	}
 
 	@Override
-	public void update(Contact t) {
+	public void update(Contact contact) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
-	public void delete(Contact t) {
+	public void delete(Contact contact) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
