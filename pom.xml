@@ -15,7 +15,7 @@
 	<packaging>war</packaging>
 	
 	<name>Spring in Practice Section 2.1</name>
-	<description>Illustrates two different ways to present a JDBC DataSource to the application.</description>
+	<description>Shows how to use Spring's JdbcTemplate for data access.</description>
 	<url>http://springinpractice.com/</url>
 	
 	<properties>
