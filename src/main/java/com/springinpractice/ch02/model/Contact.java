@@ -1,5 +1,10 @@
 package com.springinpractice.ch02.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
 import com.springinpractice.util.StringUtils;
 
 /**
@@ -16,24 +21,30 @@ public class Contact {
 	
 	public void setId(Long id) { this.id = id; }
 	
+	@NotNull
+	@Length(min = 1, max = 40)
 	public String getLastName() { return lastName; }
 	
 	public void setLastName(String lastName) {
 		this.lastName = StringUtils.cleanup(lastName);
 	}
 	
+	@NotNull
+	@Length(min = 1, max = 40)
 	public String getFirstName() { return firstName; }
 	
 	public void setFirstName(String firstName) {
 		this.firstName = StringUtils.cleanup(firstName);
 	}
 	
+	@Length(max = 1)
 	public String getMiddleInitial() { return middleInitial; }
 	
 	public void setMiddleInitial(String mi) {
 		this.middleInitial = StringUtils.cleanup(mi);
 	}
 	
+	@Email
 	public String getEmail() { return email; }
 	
 	public void setEmail(String email) {
