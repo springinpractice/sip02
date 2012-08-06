@@ -16,7 +16,7 @@
 	<context-param>
 		<param-name>aboutThisRecipe</param-name>
 		<param-value><![CDATA[
-<p>Illustrates two different ways to present a JDBC DataSource to the application.</p>
+<p>Shows how to use Spring's JdbcTemplate for data access.</p>
 		]]></param-value>
 	</context-param>
 	
