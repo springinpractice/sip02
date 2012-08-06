@@ -11,11 +11,11 @@
 		<version>1.0-RELEASE</version>
 	</parent>
 	
-	<artifactId>com.springinpractice.02_02</artifactId>
+	<artifactId>com.springinpractice.02_03</artifactId>
 	<packaging>war</packaging>
 	
-	<name>Spring in Practice Section 2.2</name>
-	<description>Shows how to look up a data source using JNDI.</description>
+	<name>Spring in Practice Section 2.3</name>
+	<description>Shows how to use object/relational mapping for database access.</description>
 	<url>http://springinpractice.com/</url>
 	
 	<properties>
@@ -28,6 +28,13 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>com.springinpractice.api</artifactId>
 			<version>1.0-RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.springinpractice</groupId>
+			<artifactId>com.springinpractice.deps-hibernate</artifactId>
+			<version>1.0-RELEASE</version>
+			<type>pom</type>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

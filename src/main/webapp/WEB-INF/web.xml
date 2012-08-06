@@ -16,7 +16,7 @@
 	<context-param>
 		<param-name>aboutThisRecipe</param-name>
 		<param-value><![CDATA[
-<p>Shows how to look up a data source using JNDI.</p>
+<p>Shows how to use object/relational mapping for database access.</p>
 		]]></param-value>
 	</context-param>
 	
