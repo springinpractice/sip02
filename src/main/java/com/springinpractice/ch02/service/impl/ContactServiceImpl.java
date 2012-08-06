@@ -6,11 +6,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.springinpractice.ch02.dao.ContactDao;
 import com.springinpractice.ch02.model.Contact;
 import com.springinpractice.ch02.service.ContactService;
 
@@ -23,51 +22,40 @@ import com.springinpractice.ch02.service.ContactService;
 @Service
 @Transactional
 public class ContactServiceImpl implements ContactService {
-	@Inject private SessionFactory sessionFactory;
+	@Inject private ContactDao contactDao;
 
 	@Override
 	public void createContact(Contact contact) {
 		notNull(contact, "contact can't be null");
-		getSession().save(contact);
+		contactDao.create(contact);
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<Contact> getContacts() {
-		return getSession()
-			.createQuery("from Contact")
-			.list();
+		return contactDao.getAll();
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<Contact> getContactsByEmail(String email) {
 		notNull(email, "email can't be null");
-		return getSession()
-			.getNamedQuery("findContactsByEmail")
-			.setString("email", email)
-			.list();
+		return contactDao.findByEmail(email);
 	}
 
 	@Override
 	public Contact getContact(Long id) {
 		notNull(id, "id can't be null");
-		return (Contact) getSession().get(Contact.class, id);
+		return contactDao.get(id);
 	}
 
 	@Override
 	public void updateContact(Contact contact) {
 		notNull(contact, "contact can't be null");
-		getSession().update(contact);
+		contactDao.update(contact);
 	}
 
 	@Override
 	public void deleteContact(Long id) {
 		notNull(id, "id can't be null");
-		getSession().delete(getContact(id));
-	}
-	
-	private Session getSession() {
-		return sessionFactory.getCurrentSession();
+		contactDao.deleteById(id);
 	}
 }
