@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 
 import com.springinpractice.util.StringUtils;
 
@@ -33,6 +37,8 @@ public class Contact {
 	
 	public void setId(Long id) { this.id = id; }
 	
+	@NotNull
+	@Length(min = 1, max = 40)
 	@Column(name = "last_name")
 	public String getLastName() { return lastName; }
 	
@@ -40,6 +46,8 @@ public class Contact {
 		this.lastName = StringUtils.cleanup(lastName);
 	}
 	
+	@NotNull
+	@Length(min = 1, max = 40)
 	@Column(name = "first_name")
 	public String getFirstName() { return firstName; }
 	
@@ -47,6 +55,7 @@ public class Contact {
 		this.firstName = StringUtils.cleanup(firstName);
 	}
 	
+	@Length(max = 1)
 	@Column(name = "mi")
 	public String getMiddleInitial() { return middleInitial; }
 	
@@ -54,6 +63,7 @@ public class Contact {
 		this.middleInitial = StringUtils.cleanup(mi);
 	}
 	
+	@Email
 	@Column
 	public String getEmail() { return email; }
 	
