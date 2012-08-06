@@ -11,12 +11,12 @@
 	</context-param>
 	<context-param>
 		<param-name>recipe</param-name>
-		<param-value>2.2</param-value>
+		<param-value>2.4</param-value>
 	</context-param>
 	<context-param>
 		<param-name>aboutThisRecipe</param-name>
 		<param-value><![CDATA[
-<p>Shows how to use object/relational mapping for database access.</p>
+<p>Shows how to create a data access layer.</p>
 		]]></param-value>
 	</context-param>
 	
