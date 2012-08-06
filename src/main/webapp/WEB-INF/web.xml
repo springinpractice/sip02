@@ -11,12 +11,12 @@
 	</context-param>
 	<context-param>
 		<param-name>recipe</param-name>
-		<param-value>2.1</param-value>
+		<param-value>2.2</param-value>
 	</context-param>
 	<context-param>
 		<param-name>aboutThisRecipe</param-name>
 		<param-value><![CDATA[
-<p>Shows how to use Spring's JdbcTemplate for data access.</p>
+<p>Shows how to look up a data source using JNDI.</p>
 		]]></param-value>
 	</context-param>
 	
