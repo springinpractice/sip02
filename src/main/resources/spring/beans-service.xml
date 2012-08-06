@@ -19,25 +19,43 @@
 		http://www.springframework.org/schema/util
 		http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	
+	<!-- Supports @PersistenceUnit and @PersistenceContext. But don't need to define this explicitly if we use
+	     <context:annotation-config /> or <context:component-scan /> (the latter with annotation-config="true", which
+	     is the default). -->
+ 	<!-- See http://forum.springsource.org/showthread.php?52570-Usage-of-PersistenceAnnotationBeanPostProcessor -->
+<!-- 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" /> -->
+	
+	<!-- Use this EMF configuration if you are using persistence.xml. -->
+	<!--
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		p:persistenceUnitName="ContactManager" />
+	-->
+	
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/Sip02DS" resource-ref="true" />
 	
-	<util:properties id="hibernateProperties">
-		<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+	<bean id="persistenceProvider" class="org.hibernate.ejb.HibernatePersistence" />
+	
+	<util:properties id="jpaProperties">
+		<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 		<prop key="hibernate.show_sql">false</prop>
 	</util:properties>
 	
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
+	<!-- Use this EMF configuration as an alternative to using persistence.xml. -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 		p:dataSource-ref="dataSource"
-		p:packagesToScan="com.springinpractice.ch02.model"
-		p:hibernateProperties-ref="hibernateProperties" />
+		p:persistenceProvider-ref="persistenceProvider"
+		p:jpaProperties-ref="jpaProperties"
+		p:packagesToScan="com.springinpractice.ch02.model" />
 	
 	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
-		p:sessionFactory-ref="sessionFactory" />
+		class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory" />
 	
 	<tx:annotation-driven />
-	
-	<context:component-scan base-package="com.springinpractice.ch02.dao.hbn" />
+    
+    <!-- These automatically register the PersistenceAnnotationBeanPostProcessor, as indicated above. -->
+	<context:component-scan base-package="com.springinpractice.ch02.dao.jpa" />
 	<context:component-scan base-package="com.springinpractice.ch02.service.impl" />
 </beans>

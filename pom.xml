@@ -49,6 +49,12 @@
 			<type>war</type>
 		</dependency>
 		
+		<!-- Need this to use Hibernate as a JPA persistence provider -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		
 		<!-- For JDBC -->
 		<dependency>
 			<groupId>com.mysql.jdbc</groupId>
