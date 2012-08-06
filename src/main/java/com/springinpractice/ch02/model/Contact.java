@@ -18,7 +18,7 @@ import com.springinpractice.util.StringUtils;
 @Table(name = "contact")
 @NamedQuery(
 	name = "findContactsByEmail",
-	query = "from Contact where email = :email")
+	query = "from Contact where email like :email")
 public class Contact {
 	private Long id;
 	private String lastName;

@@ -22,7 +22,7 @@ public class HbnContactDao extends AbstractHbnDao<Contact> implements ContactDao
 		notNull(email, "email can't be null");
 		return getSession()
 			.getNamedQuery("findContactsByEmail")
-			.setString("email", email)
+			.setString("email", "%" + email + "%")
 			.list();
 	}
 }
