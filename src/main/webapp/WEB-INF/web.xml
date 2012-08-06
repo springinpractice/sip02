@@ -11,12 +11,12 @@
 	</context-param>
 	<context-param>
 		<param-name>recipe</param-name>
-		<param-value>2.5</param-value>
+		<param-value>2.6</param-value>
 	</context-param>
 	<context-param>
 		<param-name>aboutThisRecipe</param-name>
 		<param-value><![CDATA[
-<p>Shows how to use JPA-based persistence.</p>
+<p>Shows how to use Spring Data JPA for your data access layer.</p>
 		]]></param-value>
 	</context-param>
 	
