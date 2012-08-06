@@ -59,6 +59,38 @@ public class ContactController {
 			"firstName", "middleInitial", "lastName", "email"
 		});
 	}
+	
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	public String createContactForm(HttpServletRequest req, Model model) {
+		prepareNewContactForm(req);
+		model.addAttribute(new Contact());
+		return contactFormViewName;
+	}
+	
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public String createContact(
+			HttpServletRequest req,
+			HttpServletResponse res,
+			@ModelAttribute @Valid Contact contact,
+			BindingResult result) {
+		
+		if (!result.hasErrors()) {
+			contactService.createContact(contact);
+			
+			// Correct RESTful semantics involves setting the status and location, but these will be overridden if the
+			// createContactSuccessViewName issues a redirect.
+			res.setStatus(HttpServletResponse.SC_CREATED);
+			String location = req.getRequestURL() + "/" + contact.getId();
+			log.debug("Setting Location={}", location);
+			res.setHeader("Location", location);
+			
+			return createContactSuccessViewName;
+		} else {
+			prepareNewContactForm(req);
+			result.reject("global.error");
+			return contactFormViewName;
+		}
+	}
 
 	/**
 	 * Places a list containing all contacts on the passed model, and returns the logical view name for displaying the
@@ -74,37 +106,10 @@ public class ContactController {
 		return contactListViewName;
 	}
 	
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String createContact(
-			HttpServletRequest req,
-			HttpServletResponse res,
-			@ModelAttribute @Valid Contact contact,
-			BindingResult result) {
-		
-		if (!result.hasErrors()) {
-			contactService.createContact(contact);
-			
-			// Correct RESTful semantics involves setting the status and location,
-			// but these will be overridden if the createContactSuccessViewName
-			// issues a redirect.
-			res.setStatus(HttpServletResponse.SC_CREATED);
-			String location = req.getRequestURL() + "/" + contact.getId();
-			log.debug("Setting Location={}", location);
-			res.setHeader("Location", location);
-			
-			return createContactSuccessViewName;
-		} else {
-			prepareNewContactForm(req);
-			result.reject("global.error");
-			return contactFormViewName;
-		}
-	}
-	
-	@RequestMapping(value = "/new", method = RequestMethod.GET)
-	public String createContactForm(HttpServletRequest req, Model model) {
-		prepareNewContactForm(req);
-		model.addAttribute(new Contact());
-		return contactFormViewName;
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String searchByEmail(@RequestParam("email") String email, Model model) {
+		model.addAttribute(contactService.getContactsByEmail(email));
+		return contactSerpViewName;
 	}
 
 	/**
@@ -161,12 +166,11 @@ public class ContactController {
 		return deleteContactSuccessViewName;
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String searchByEmail(@RequestParam("email") String email, Model model) {
-		model.addAttribute(contactService.findContactByEmail(email));
-		return contactSerpViewName;
-	}
-
+	
+	// =================================================================================================================
+	// Helper methods
+	// =================================================================================================================
+	
 	private void prepareNewContactForm(HttpServletRequest req) {
 		setActionAndMethod(req, "/contacts.html", "POST");
 	}

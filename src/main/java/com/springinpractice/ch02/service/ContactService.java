@@ -28,6 +28,8 @@ public interface ContactService {
 	 * @return list of all contacts
 	 */
 	List<Contact> getContacts();
+	
+	List<Contact> getContactsByEmail(String email);
 
 	/**
 	 * Returns the contact having the given ID, or <code>null</code> if no such contact exists.
@@ -36,7 +38,7 @@ public interface ContactService {
 	 *            contact ID
 	 * @return contact having the given ID
 	 */
-	Contact getContact(long id);
+	Contact getContact(Long id);
 	
 	void updateContact(Contact contact);
 
@@ -46,7 +48,5 @@ public interface ContactService {
 	 * @param id
 	 *            contact ID
 	 */
-	void deleteContact(long id);
-	
-	List<Contact> findContactByEmail(String email);
+	void deleteContact(Long id);
 }

@@ -1,4 +1,4 @@
-package com.springinpractice.ch02.dao.jdbc;
+package com.springinpractice.ch02.service.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
