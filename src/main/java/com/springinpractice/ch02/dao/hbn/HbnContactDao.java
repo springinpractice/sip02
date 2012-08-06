@@ -1,4 +1,4 @@
-package com.springinpractice.ch02.dao;
+package com.springinpractice.ch02.dao.hbn;
 
 import static org.springframework.util.Assert.notNull;
 
@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.springinpractice.ch02.dao.ContactDao;
 import com.springinpractice.ch02.model.Contact;
 import com.springinpractice.dao.hibernate.AbstractHbnDao;
 
