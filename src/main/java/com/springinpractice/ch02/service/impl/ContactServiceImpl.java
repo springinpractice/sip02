@@ -45,7 +45,7 @@ public class ContactServiceImpl implements ContactService {
 		notNull(email, "email can't be null");
 		return getSession()
 			.getNamedQuery("findContactsByEmail")
-			.setString("email", email)
+			.setString("email", "%" + email + "%")
 			.list();
 	}
 
