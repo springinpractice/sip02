@@ -51,10 +51,6 @@
 		
 		<!-- For JDBC -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.jdbc</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.mysql.jdbc</groupId>
 			<artifactId>com.springsource.com.mysql.jdbc</artifactId>
 		</dependency>
