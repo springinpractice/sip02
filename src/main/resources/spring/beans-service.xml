@@ -57,7 +57,7 @@
 		p:entityManagerFactory-ref="entityManagerFactory" />
 	
 	<tx:annotation-driven />
-    
-    <jpa:repositories base-package="com.springinpractice.ch02.dao" />
+	
+	<jpa:repositories base-package="com.springinpractice.ch02.dao" />
 	<context:component-scan base-package="com.springinpractice.ch02.service.impl" />
 </beans>
