@@ -70,8 +70,7 @@ public class ContactServiceImpl implements ContactService {
 	@Override
 	public Contact getContact(Long id) {
 		notNull(id, "id can't be null");
-		SqlParameterSource params = new MapSqlParameterSource()
-			.addValue("id", id);
+		SqlParameterSource params = new MapSqlParameterSource("id", id);
 		return jdbcTemplate.queryForObject(FIND_ONE_SQL, params, contactRowMapper);
 	}
 
@@ -90,8 +89,6 @@ public class ContactServiceImpl implements ContactService {
 	@Override
 	public void deleteContact(Long id) {
 		notNull(id, "id can't be null");
-		SqlParameterSource params = new MapSqlParameterSource()
-			.addValue("id", id);
-		jdbcTemplate.update(DELETE_SQL, params);
+		jdbcTemplate.update(DELETE_SQL, new MapSqlParameterSource("id", id));
 	}
 }
