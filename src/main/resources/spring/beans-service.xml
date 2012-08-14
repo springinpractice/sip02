@@ -13,24 +13,11 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/data/jpa
-		http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
+		http://www.springframework.org/schema/data/jpa/spring-jpa-1.1.xsd
 		http://www.springframework.org/schema/jee
 		http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
 		http://www.springframework.org/schema/tx
 		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
-	
-	<!-- Supports @PersistenceUnit and @PersistenceContext. But don't need to define this explicitly if we use
-	     <context:annotation-config /> or <context:component-scan /> (the latter with annotation-config="true", which
-	     is the default). -->
- 	<!-- See http://forum.springsource.org/showthread.php?52570-Usage-of-PersistenceAnnotationBeanPostProcessor -->
-<!-- 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" /> -->
-	
-	<!-- Use this EMF configuration if you are using persistence.xml. -->
-	<!--
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		p:persistenceUnitName="ContactManager" />
-	-->
 	
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/Sip02DS" resource-ref="true" />
 	
