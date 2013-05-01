@@ -1,5 +1,5 @@
 ========================================================================================================================
-README - Spring in Practice Recipe 2.1
+README - Spring in Practice Recipe 2.2
 
 Copyright (c) 2013 Manning Publications Co.
 
@@ -10,4 +10,4 @@ Blog: http://springinpractice.com/
 Code: https://github.com/springinpractice
 ========================================================================================================================
 
-Shows how to use Spring's JdbcTemplate for data access.
+Shows how to look up a data source using JNDI.
