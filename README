@@ -1,0 +1,13 @@
+========================================================================================================================
+README - Spring in Practice Recipe 2.1
+
+Copyright (c) 2013 Manning Publications Co.
+
+Willie Wheeler (willie.wheeler@gmail.com)
+
+Book: http://manning.com/wheeler/
+Blog: http://springinpractice.com/
+Code: https://github.com/springinpractice
+========================================================================================================================
+
+Shows how to use Spring's JdbcTemplate for data access.
