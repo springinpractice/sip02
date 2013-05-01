@@ -1,5 +1,5 @@
 ========================================================================================================================
-README - Spring in Practice Recipe 2.3
+README - Spring in Practice Recipe 2.4
 
 Copyright (c) 2013 Manning Publications Co.
 
@@ -10,4 +10,4 @@ Blog: http://springinpractice.com/
 Code: https://github.com/springinpractice
 ========================================================================================================================
 
-Shows how to use object/relational mapping for database access.
+Shows how to create a data access layer.
